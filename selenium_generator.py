@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from urllib.parse import urlparse
 
-website_list = ["https://www.google.com", "https://www.facebook.com", "https://www.youtube.com", "https://www.amazon.com", "https://www.reddit.com", "https://www.wikipedia.org", "https://www.yahoo.com", "https://www.twitter.com", "https://www.instagram.com", "https://www.linkedin.com"]
+website_list = ["https://www.google.com", "https://www.facebook.com", "https://www.youtube.com", "https://www.amazon.com", "https://www.yahoo.com", "https://www.twitter.com", "https://www.instagram.com", "https://www.linkedin.com", "https://chatgpt.com/", "https://www.cnn.com"]
 
 # Driver Options
 s = Service(ChromeDriverManager().install())
@@ -20,8 +20,9 @@ for site in website_list:
     print("Scanning website: " + site)
     for i in range(50):
         try:
-            domain_name = urlparse(site).netloc.split('.')[1]
-            pcap_file = f"captured_data/{domain_name}_{i + 1}.pcap"
+            domain_name = site.replace("https://", "").replace("http://", "").replace("www.", "").replace(".com", "").replace("/", "")
+
+            pcap_file = f"captured_packets3/{domain_name}_{i + 1}.pcap"
 
             tshark_cmd = ["tshark", "-i", "Wi-Fi", "-f", "udp port 443", "-w", pcap_file, "-l"]
             tshark_process = subprocess.Popen(tshark_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
