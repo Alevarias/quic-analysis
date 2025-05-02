@@ -16,6 +16,7 @@ def main():
     pcap_dir = "captured_packets"
     records = []
 
+    print("Processing .pcap files...")
     for fname in os.listdir(pcap_dir):
         if not fname.lower().endswith(".pcap"):
             continue
@@ -40,11 +41,15 @@ def main():
         sizes = [] 
         directions = []
 
+        print("Processing {}".format(fname))
+
         # Extracting QUIC packets and their details from .pcap files
         for pkt in cap:
+            # print(pkt)
 
             # Making extra sure that we're only processing QUIC packets
             if not hasattr(pkt, 'quic'):
+                print("Non QUIC packet in {}".format(fname))
                 continue
 
             # Recording the relative timestamp
@@ -53,14 +58,19 @@ def main():
 
             # Recording the packet size
             sizes.append(int(pkt.frame_info.len))
+            # print(pkt.frame_info.len)
 
             # Recording the directionality of the packet
-            try:
-                sport = int(pkt.quic.srcport)
-                dport = int(pkt.quic.dstport)
-            except Exception:
+            if hasattr(pkt, 'transport_layer') and pkt.transport_layer == 'UDP':
+                udp_layer = pkt[pkt.transport_layer]
+                sport = int(udp_layer.srcport)
+                dport = int(udp_layer.dstport)
+            else:
                 directions.append(0)
                 continue
+
+            # print(sport)
+            # print(dport)
 
             # Labels directionality of the packet
             # Client to Server traffic should always have dport 443
