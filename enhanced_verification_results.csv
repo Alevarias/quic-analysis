@@ -1,6 +1,0 @@
-IP,Predicted,Actual,Domain,Result
-10.128.131.28,linkedin,unknown,host.docker.internal,INCORRECT
-172.64.41.3,linkedin,unknown,Unknown,INCORRECT
-142.250.72.46,linkedin,unknown,den16s08-in-f14.1e100.net,INCORRECT
-142.250.69.234,twitter,unknown,den08s05-in-f10.1e100.net,INCORRECT
-192.178.131.94,linkedin,unknown,yucmhwf-in-f94.1e100.net,INCORRECT
