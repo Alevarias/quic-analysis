@@ -7,7 +7,10 @@
 - Update the wireshark path if it isn't already updated.
 - If you've installed wireshark in the default location, you can use the following instructions to add the wireshark path: Settings > System Properties > Environment Variables > System Variables > Path > New > C:\Program Files\Wireshark
 3. Python Libraries
-- You can install the dependencies by downloading the requirements.txt and using the bash command: pip install -r requirements.txt. 
+- You can install the dependencies by downloading the requirements.txt and using the bash command:
+```bash
+pip install -r requirements.txt. 
+```
 
 ## How to execute the code: 
 - The main tool is the live_quic_reader.py script. You can either open it in an IDE and run it from there or use the terminal with the command: python3 live_quic_reader.py. After running the code, the listener will be on and searching for packets being transmitted across the wifi network. 
